@@ -1,0 +1,48 @@
+\begin{longtable}{|llrrrrrr|}
+	\hline
+	\multicolumn{2}{|l|}{\textbf{Patrón de Subprocesos}} & \multicolumn{6}{|l|}{\textit{Ingresar Facturas electronicas}} \\ \hline
+	\multicolumn{8}{|l|}{\textbf{Definición general del proceso}} \\ \hline
+	\textbf{Proceso} & \multicolumn{7}{|m{12cm}|}{Ingreso y} \\ \hline
+	\textbf{Categoría} & \multicolumn{7}{|m{12cm}|}{Operacional} \\ \hline
+	\textbf{Propósito} & \multicolumn{7}{|m{12cm}|}{Ingresar a la primera etapa del tramite los datos de la factura de forma automatica} \\ \hline
+    \textbf{Descripción} & \multicolumn{7}{|m{12cm}|}{Subproceso de Ingreso de facturas proveedores, esta parte se encarga de leer las facturas electronicas para cargar los datos de forma automatica al tramite en ENGAGE} \\ \hline
+	\multirow{4}[6]{*}{\textbf{Objetivos}} 
+		  & \multicolumn{7}{|l|}{O1 - Recepcionamiento de facturas electronicas} \\ \cline{2-8}
+          & \multicolumn{7}{|l|}{O2 - Lectura y carga de las facturas a Engage } \\ \cline{2-8}
+          & \multicolumn{7}{|l|}{O3 -  Envio de Facturas a contabilidad} \\ \hline
+    \multicolumn{1}{|l|}{\textbf{Responsabilidad}} 	& \multicolumn{7}{|l|}{Responsable: } \\
+	\multicolumn{1}{|l|}{\textbf{y Autoridad}} 	& \multicolumn{7}{|l|}{Autoridad: } \\ \hline
+    \multicolumn{1}{|l|}{\textbf{Procesos}} 	& \multicolumn{7}{|l|}{Este es el proceso macro por lo tanto no tiene procesos relacionados} \\
+	\multicolumn{1}{|l|}{\textbf{Relacionados}} 	&  \multicolumn{7}{|l|}{} \\ \hline
+          &       &       &       &       &       &       &  \\ \hline
+    \multicolumn{8}{|l|}{\textbf{Entradas}} \\ \hline
+    \multicolumn{5}{|l|}{\textbf{Nombre}}   & \multicolumn{3}{|l|}{\textbf{Fuente}} \\ \hline
+    \multicolumn{5}{|l|}{Facturas de los proveedores} & \multicolumn{3}{|l|}{Proveedores} \\  \hline
+       &       &       &       &       &       &       &  \\ \hline
+    \multicolumn{8}{|l|}{\textbf{Salidas}} \\ \hline
+    \textbf{Nombre} & \multicolumn{5}{|l|}{\textbf{Descripción}} & \multicolumn{2}{|l|}{\textbf{Destino}} \\ \hline
+    Informacion & \multicolumn{5}{|l|}{Información cargada en ENGAGE} & \multicolumn{2}{|l|}{Cliente} \\ \hline
+       &       &       &       &       &       &       &  \\ \hline
+	
+	
+	\multicolumn{8}{|l|}{\textbf{Actividades}} \\ \hline
+    \textbf{Rol} & \multicolumn{7}{|l|}{\textbf{Descripción}} \\ \hline 
+    \multicolumn{8}{|l|}{\textbf{A1. Recepcionamiento de facturas electronicas (O1) }} \\ \hline
+     Casilla de Correo& \multicolumn{7}{|l|}{A1.1 -  Recepcionar Correos} \\ \hline
+   
+    \multicolumn{8}{|l|}{\textbf{A2. Lectura y carga de las facturas a Engage}} \\ \hline
+    Aplicación & \multicolumn{7}{|m{12cm}|}{A2.1 - Descargar archivos adjuntos} \\ \hline
+    Aplicación & \multicolumn{7}{|l|}{A2.2 Se resuelve si viene ademas un PDF en el correo} \\ \hline
+    Aplicación & \multicolumn{7}{|l|}{A2.2a Si viene el PDF, se guarda el archivo} \\ \hline
+    Aplicación & \multicolumn{7}{|m{12cm}|}{A2.2b Si no viene el PDF se lee XML } \\ \hline
+    Aplicación & \multicolumn{7}{|m{12cm}|}{A2.3 Cargar datos a ENGAGE} \\ \hline
+
+    \multicolumn{8}{|l|}{\textbf{A3. Envio de Facturas a contabilidad}} \\ \hline
+    Contabilidad & \multicolumn{7}{|l|}{A3.1 - Se envia factura para autorización} \\ \hline
+    
+     & & & & & & & \\ \hline
+	\multicolumn{8}{|l|}{\textbf{Verificaciones y Validaciones}} \\ \hline
+	\multicolumn{2}{|m{3cm}|}{\textbf{Verificaciones y Validaciones}} & \multicolumn{1}{m{2cm}|}{\textbf{Actividad}} & \multicolumn{1}{m{2,2cm}|}{\textbf{Producto}} & \multicolumn{1}{m{1.5cm}|}{\textbf{Rol}} &\multicolumn{3}{m{4cm}|}{\textbf{Lineamientos de Verificacion o Validacion}} \\ \hline
+	
+	\multicolumn{2}{|m{3cm}|}{Ver 1} & \multicolumn{1}{m{2cm}|}{Comprobar existencia de PDF en correo} & \multicolumn{1}{m{2,2cm}|}{PDF descargado} & \multicolumn{1}{m{1.5cm}|}{App} &\multicolumn{3}{m{4cm}|}{Verifica si en el correo donde viene la factura electronica tambien trae una copia digital de la factura fisica} \\ \hline
+\end{longtable}
