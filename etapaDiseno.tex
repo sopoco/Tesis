@@ -1,0 +1,66 @@
+\subsection{Etapa de Diseño}
+
+\subsubsection{Rediseño del proceso de pago facturas} 
+Luego de un análisis completo de cada etapa se procedió a crear un modelo que simplificara todo el proceso, con el fin de poder rediseñarlo más fácilmente. El modelo más simple o general es el siguiente \textit{(Figura 4.4)}:
+		
+		\begin{figure}[H]
+			\centering
+			\includegraphics[width=1\textwidth]{Imagenes/procesosimple}
+			\caption{Modelo simple proceso pago proveedores}
+		\end{figure}
+			
+	En la primera etapa es donde se verán los mayores cambios, la cual corresponde a recepción o ingreso de las facturas dependiendo del tipo de documento, existirán algunos cambios que se explicaran mas adelante, lo importante es que la persona encargada de recepcionar estos documentos ya no tendrá que hacerlo, por lo tanto se observara una mejora considerable en comparación a como este proceso estaba originalmente. Luego cuando se inicie el tramite \textit{(Engage)} los datos de los XML estarán cargados y listos para que la recepción pueda realizar una revisión y corrección rápida si es que el XML proviene del OCR, posteriormente pasa a realizar la aprobación de esta, para esto el encargado de esto es el gerente de la empresa receptora de la factura, sin embargo, hay empresas que poseen mas de un autorizador, por lo que si se mal asigno el autorizador es posible realizar un cambio de este. Si la persona seleccionada de autorizar es correcta se encarga de revisar de que exista una orden de compra asociada a la factura, dependiendo de que esta exista o no se puede autorizar o rechazar. Si la factura fue autorizada se envia a contabilidad, que se encarga de confirmar esto y lo alamacena en una tabla de la base de datos de SoluNegocios y finalmente autoriza el pago de esta factura. Si es rechazada por la persona que autorizo, esta también debe ser confirmada por contabilidad.
+	\newline
+	\par
+	Como se dijo, en este proceso se podría decir que existen 2 tipos de documentos y dependiendo de ellos el proceso varia levemente en la etapa de ingreso o recepción, debido a las herramientas que son usadas para la obtención de los datos incluidos en estas facturas.
+
+	\paragraph{Proceso para facturas electrónicas} 
+	La principal diferencia que se encuentra en este tipo de documento, es que no llega una factura física a la recepción de la empresa como en el proceso original, sino que se recepciona un archivo XML con los datos que vendrían en la factura y a veces un archivo PDF como copia digital de la factura, todo esto es recepcionado en una casilla de correo electrónica para luego ser descargado por una aplicación de consola programada en $C\#$, la cual se encarga de descargar y guardar los archivos adjuntos de los correos, para posteriormente leer específicamente los tags necesarios y extraer solo la información que se necesita para luego ejecutar desde la aplicación de consola los procedimientos almacenados que dejan las actividades de los tramites pendientes en el sitio de Engage esto se puede ver en el siguiente modelo \textit{(ver Figura 4.5)}.
+	
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width=0.9\textwidth]{Imagenes/ing_elec}
+		\caption{Ingreso para facturas electrónicas}
+	\end{figure}
+	
+	Luego viene el proceso para autorizar el pago, el cual es realizado generalmente por el gerente de cada empresa del holding\textit{(ver Figura 4.6)}, en la caso que se seleccione una persona equivocada para este proceso se gatilla la actividad de asignar un nuevo autorizador \textit{(ver Figura 4.7)}.
+	
+	
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width=0.95\textwidth]{Imagenes/aut_elec}
+		\caption{Autorización para facturas electrónicas}
+	\end{figure}
+	
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width=0.95\textwidth]{Imagenes/asig_elec}
+		\caption{Autorización para facturas electrónicas}
+	\end{figure}
+	
+	Cuando finalmente la factura es autorizada por la persona correspondiente, se debe confirmar dicha autorización por contabilidad y para luego finalmente emitir la orden de pago de esta. En el caso que se rechazase la facturas solo se confirma el rechazo \textit{(ver Figura 4.8)}.
+	
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width=1\textwidth]{Imagenes/reg_elec}
+		\caption{Registro para facturas electrónicas}
+	\end{figure}
+	
+		Finalmente para complementar y agregar mas detalles a los modelos de los procesos, se utiliza el patrón de procesos de Competisoft, el cual se ve en la Tabla 4.1 que se muestra a continuación.
+		
+		\input{tabla1.tex}
+		
+	
+	\paragraph{Proceso para facturas físicas}
+	 A diferencia del proceso con facturas electrónicas, aquí si las facturas son entregadas en la recepción de cada empresa, pero a diferencia con el proceso original en esta solo se escanea la factura, en este caso el encargado de leer y posteriormente extraer los datos de las factura es el software OCR, con esta herramienta se tiene que definir unas plantillas de reconocimiento y cargar estas plantillas al servidor donde se encuentre el software, con esto, el OCR dará como archivo de salida un archivo XML, el cual como en el proceso de facturas electrónicas es leído por una aplicación de consola que se encarga de ejecutar los procedimientos almacenados, los cuales dejan pendiente los tramites en los sitios correspondientes. Como se ve en la Figura 4.9
+	 
+	 	\begin{figure}[H]
+	 		\centering
+	 		\includegraphics[width=1\textwidth]{Imagenes/ing_Noelec}
+	 		\caption{Ingreso para facturas no electrónicas}
+	 	\end{figure}
+	 
+	 Las etapas siguientes de este proceso son las mismas tanto para las facturas electrónicas y físicas, las cuales se pueden observar en las Figuras 4.6, 4.7 y 4.8, correspondientes a la autorización, asignación y registro respectivamente. Además al igual que en la etapa de facturas electrónicas se detallo aun mas el procesos mediante el patrón de procesos COMPETISOFT como se puede ver en la Tabla 4.2
+	 
+	 \input{tabla2.tex}
+	 

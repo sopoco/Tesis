@@ -1,0 +1,36 @@
+\chapter{Desarrollo}
+\newpage
+La escuela de Ingeniera Civil Informática mantiene convenio de colaboración con la empresa Solu4B, en este contexto se plantea abordar la resolución de un problema complejo. Este problema nace de la necesidad de automatizar la mayor cantidad posible de procesos que ejecutan en la actualidad en todo el holding de Solunegocios y sus empresas como SoluforB. Específicamente esta tesis se enfoca en la automatización de pago a proveedores, esto implica mejoras de procesos en el área de contabilidad, la cual consiste en agilizar y disminuir la carga de trabajo en las fechas que se  debe pagar a los proveedores, también permite aumentar las ganancias en la empresa y disminuir la tasa de errores.
+
+	\section{Marco de trabajo}
+	Para el desarrollo de esta tesis el marco de trabajo realizado consistió en separar todo en etapas, cada una de estas son dependientes de su etapa anterior, es decir que ninguna etapa puede comenzar si es que la anterior haya terminado completamente. 
+	\newline
+	\par
+	Las etapas se basan en las etapas iniciales de la metodología BPM, las cuales son las siguientes:
+	
+	\begin{enumerate}
+		\item \textbf{Etapa de Analisis:} Se puede decir que esta etapa fue la de estudio y analisis de los requerimientos obtenidos a partir de reuniones con personas de contabilidad y con Hugo Roman que fue el impulsor del proyecto. Esta parte del desarrollo de la tesis se centró en tratar de tener un entendimiento completo del proceso actual de pago proveedores en la empresa,y las etapas que englobaban este proceso, y por lo tanto cómo la empresa mediante la integración de diversas herramientas lo gestionan.
+		
+		\item \textbf{Etapa de Diseño:} En esta etapa se realizó el rediseño del proceso, para ello fue necesario construir modelos de proceso de negocios, tanto del estado actual como de lo que se pretende cambiar, con el fin de tener una vista panorámica del producto actual y del que se desea obtener, ademas de que con estos modelos se podrá informar a todas las personas que antes participaban en este proceso los cambias realizados mediante un lenguaje menos técnico y podrán entender lo que se realizo con una mayor facilidad.
+		
+		\item \textbf{Etapa de Construcción:} Esta consistió en la construcción de los diseñado o modelado en la etapa anterior.En una primera parte se realizo la construcción de un programa cuyo objetivo es obtener las facturas electrónicas \textit{(archivos XML y/o PDF}) que son enviadas a una casilla de correo electrónico de Solu4B, para después descargarla y obtener los datos relevantes, luego almacenar todo esto en la base de datos y siga el flujo correspondiente. Posteriormente se procedió a rediseñar el flujo de trabajo \textit{(Tramite)} en Engage para luego finalizar el proyecto integrando el OCR para automatizar la parte de las facturas físicas de la empresa.
+		
+		\item \textbf{Etapa de Implantación:} Ya terminada la etapa de construcción, viene la parte de pasar todo el proyecto al servidor de producción para que quede completamente funcional, para que esto suceda es necesario primero la revisión del código de la aplicación de escritorio y luego la revisión del tramite completo, también se realizo una corrección de lo revisado para añadir ciertas validaciones de datos y ademas la posibilidad de ingresar manualmente una factura si es lo que se desea o necesita realizar.
+	\end{enumerate}
+	
+	Se puede observar en la Figura 4.1 un diagrama de etapas recientemente nombradas.
+	
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width=0.8\textwidth]{Imagenes/actividad}
+		\caption{Diagrama de Actividad etapas de trabajo}
+	\end{figure}
+
+
+
+
+
+
+
+
+

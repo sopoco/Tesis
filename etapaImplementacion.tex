@@ -1,0 +1,13 @@
+\subsection{Etapa de Implantación}
+
+	\subsubsection{Revisión y Corrección}
+	Luego de terminar de construir las diferentes partes del sistema y como este proceso involucra una parte muy importante en el área de contabilidad de todo el holding de SoluNegocios, tanto el código de la aplicación encargada de descargar las facturas, como el tramites y todo lo que involucra este \textit{(actividades, entidades, transacciones, SQL, procedimientos almacenados)}, esto se debe al gran impacto que podría tener si sucediera algún error en una de estas partes que componen el nuevo proceso de pago proveedores.
+	\newline
+	\par
+	En el caso de la aplicación de consola, se encontraron algunos instancias que tuvieron que ser corregidas, las cuales fueron principalmente no dejar datos en duro, es decir, no dejar información que pueda ser leída directamente del código como por ejemplo la ip y credenciales de algún servidor. También se modifico la entrada por argumento del código de la empresa, el cual servía para seleccionar la empresa en cual se descargarían los correos, esto se remplazo mediante un query a una tabla donde se guardan la información de las empresas, en esta consulta se preguntan loa correos de las empresas que poseen un correo de facturación electrónica.
+	\newline
+	\par
+	En la revisión del trámite, en general no hubo mayores problemas en esta revisión, se revisó cada procedimiento almacenados corrigiendo algunos problemas de identación y de sintaxis de algunas consultas.
+
+	\subsubsection{Paso a Producción}
+	El paso producción significa pasar el tramite, entidades, transacciones y procedimientos almacenados al servidor donde están las aplicaciones  de Engage que se usan en SoluNegocios y además de dejar la aplicación de los correos ejecutándose en el servidor donde se guardaran las copias de los archivos PDF mediante un scheduler, es decir, la aplicación se ejecutará cada cierto tiempo predefinido. Esto se realizara mediante la generación de un DTS \textit{(Data Transformation Services)} en inteIntegration Service y se ejecutara periódicamente por medio de un job de Sql Agent.

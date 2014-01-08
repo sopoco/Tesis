@@ -1,0 +1,215 @@
+\subsection{Etapa de Construcción}
+
+\subsubsection{Aplicación para la obtención de la factura electrónica} 
+Aquí parte la tercera etapa en el desarrollo, esta aplicación a grandes rasgos realiza la captura y enviá los datos necesarios para que el flujo siga su correcto desarrollo, actuando directamente con algunas herramientas usadas, tales como Engage o Sql Server. 
+		
+	\paragraph{Obtención y análisis de requisitos} 
+	Como esta aplicación es un programa bastante pequeño y ademas propósitos bastantes específicos solo basto una reunión con Hugo Roman para explicar que lo que necesitaba era una herramienta que leyera un una casilla de correo electrónico, bajara los archivos XML adjuntos y la copia en Pdf de las factura si es que venia adjuntada en el correo para luego poder leer este XML y obtener la información de ciertos tags y enviar esta información junto con el Pdf adjuntado a través de procedimientos almacenados a Engage.
+
+	\paragraph{Construcción de la aplicación}
+			Dado los requerimientos obtenidos se pueden decir que la aplicación necesita realizar las siguiente tareas:
+			
+			\begin{itemize}
+				\item Descargar archivos adjuntos de los correos de la empresas.
+				\item Leer archivo XML y obtener la información de ciertos tags.
+				\item Ejecutar procedimientos almacenados.
+				\item Leer y copiar ficheros \textit{(carpetas y archivos)}.
+			\end{itemize}
+			
+			\subparagraph{Método conexión servidor de correo}
+			La primera parte de la aplicación fue programar el método encargado de descargar los archivos adjuntos del correo de la empresa donde llegan los archivos que necesitamos, para ellos se utilizo como referencia otro código elaborado por otra persona en SoluforB, el cual sirvió como base para la construcción de este método.
+			\newline
+			\par
+			Este método usa la clase EWS \textit{(Exchange Web Service)}, que es la clase provee acceso a los métodos y propiedades para el manejo de un servidor de correos Exchange, como el que posee el holding SoluNegocios. Para realizar esto lo primero fue instanciar la clase ExchangeService y luego al objeto creado se le pasan las credenciales del servidor de correo para que este pueda conectarse a este. Posteriormente se necesito recorrer la lista de correos en la cuenta, para eso fue necesario crear otra instancia, pero esta vez de la clase ItemView, clase hija de la EWS, y mediante el usos de instrucciones \textit{foreach}, para leer uno a uno cada correo y  las instrucciones \textit{if else} para restringir la lectura de estos correos dado la fecha en que llegaron, si es que viene con archivos adjuntos y si viene con archivos adjuntos solo se descarguen si son del tipo XML y/o Pdf. En la figura 4.10 muestra un ejemplo de como realizar la conexión al servidor de correos Exchange.
+
+			\begin{figure}[H]
+				\centering
+				\includegraphics[width=1\textwidth]{Imagenes/exchange}
+				\caption{Ejemplo conexión a servidor Exchange en C$\#$}
+			\end{figure}
+			
+			\par 
+			\subparagraph{Método para leer XML}
+			Luego de descargar los archivos se deben leen solo los archivos XML, para ello se creo un objeto instanciando la clase xmlDocument, la cual permite leer el archivo completo y seleccionar los nodos o tags que se necesiten. Para poder realizar lo anterior, los nodos que se necesitaban solo basto conocer el nombre de estos, y como el archivo XML y todos su tags vienen con un formato estándar dado por el servicio de impuestos internos de Chile, solo fue necesario seleccionar los nodos y obtener el nombre de cada tag dados por el S.I.I mediante el método GetElementsByTagName. El único problema que surgió en esta parte de la aplicación fue que en algunos XML aparecen tags que en otros archivos del mismo formato, esto fue solucionado mediante ciertas preguntas para obtener la existencia de estos nodos. Por ejemplo en la Figura 4.11 se carga el archivo XML y se busca el tag \textit{Folio} para luego ser guardado en un string.\\
+
+			\begin{figure}[H]
+				\centering
+				\includegraphics[width=1\textwidth]{Imagenes/xml}
+				\caption{Ejemplo leer nodo de un XML en C$\#$}
+			\end{figure}			
+
+			\subparagraph{Método conexión base de datos}
+			Lo siguiente a realizar fue enviar a la base de datos de Engage la información obtenida de los archivos descargados desde la cuenta de correo electrónico, para esto es necesario primero haber creado los procedimientos almacenados en el SQL SERVER, ya que esta aplicación solo ejecutará los procedimientos, para realizar esto es necesario primero es crear un objeto del tipo SQLConnection, y a este objeto pasarle como argumento una cadena de conexión que contiene la dirección del servidor, nombre, usuario y la contraseña de la base de datos, para luego crear otro objeto del tipo SQLCommand, al cual se le debe pasar el nombre del stored procedure y el objeto del tipo SQLConnection para poder ejecutar este procedimiento correctamente, finalmente se usa el método Parameters tanta veces como parámetros necesite el procedimiento. Por ejemplo en la Figura 4.12 se ejecuta un procedimiento y se le pasa como parámetro una variable varchar de tamaño 100, que equivale al numero de una factura.
+			
+			\begin{figure}[H]
+				\centering
+				\includegraphics[width=1\textwidth]{Imagenes/sp}
+				\caption{Ejemplo ejecutar procedimiento almacenado en C$\#$}
+			\end{figure}			
+
+			\subparagraph{Manipulación de archivos}
+			Para finalizar los archivos descargados del correo se guardan en una carpeta con la fecha y hora en que se descargaron, ademas dentro de esta carpeta se organizan las facturas por empresa \textit{(carpetas con nombres de las empresas que poseen correo de facturación)}. Usando los métodos de la clases System.IO.FileInfo, para poder copiar o mover archivos a carpetas locales o carpetas compartidas a través de una red.		
+		
+	\subsubsection{Integración con Engage}
+	Luego de tener claro el funcionamiento del proceso y someterlo a algunos cambios, con el fin de automatizarlo lo mas posible se procedió a implementar estos cambios en Engage, para esto primero que nada se me hizo una introducción a la herramienta.
+
+		\paragraph{Inducción a Engage}
+		En esta etapa se me enseño los elemento básicos de la herramienta Designer del CRM Engage, Como realizar la instalación de esta, hasta crear un tramite a modo de ejemplo con las acciones básicas que se pueden realizar, dicho ejemplo consistió en agregar,editar y eliminar personas de cierto registro, mediante el uso de las pantallas creadas en cada estructura de conversación y como estas se relaciona con la entidad \textit{(tabla)} del tramite, es decir como funciona con sql server.
+		
+		\paragraph{Revisión del trámite del proceso de pago}
+		A continuación de la inducción a Engage se revisó el tramite existente que realiza el proceso, llamado \textit{Ingreso Factura Proveedor}, el cual esta compuesto por 4 actividades y que están representadas en un grafo con sus respectivos estados finales, como se muestra en la Figura 4.13.
+
+		\begin{figure}[H]
+			\centering
+			\includegraphics[width=0.8\textwidth]{Imagenes/grafoTramite}
+			\caption{Grafo asociado al tramite}
+		\end{figure}
+		
+		Cada una de estas actividades son las mismas que componen los modelos realizados y mostrados con anterioridad, la diferencia yace en las estructuras de control que componen cada una de estas. Específicamente las actividades existentes son:
+		
+		\begin{itemize}
+			\item ING$\_$FACTURAPROVEEDOR.
+			\item AUT$\_$FACTURAPROVEEDOR.
+			\item ASG$\_$FACTURAPROVEEDOR.
+			\item REG$\_$FACTURAPROVEEDOR.
+		\end{itemize}
+
+	Además de las actividades que componen el tramite, existe un componente llamado \textit{Entidad}, el cual es la tabla del tramite y su función es registrar cada paso acción realizada, en el caso del tramite de Ingresar facturas proveedor, esta entidad es usada para registrar cada campo de la factura y así poder realizar los cambios que se necesitan para que la factura se apruebe y finalmente quede registrada correctamente en la base de datos de la empresa, mediante otra entidad, pero esta vez en una entidad externa al tramite. 
+		
+		
+		\paragraph{Revisión de las actividades del tramite}
+		La primera actividad a realizar del tramite es el ingreso de las facturas, en esta actividad se ingresan de forma manual los principales datos de las facturas tales como:
+		
+		\begin{itemize}
+			\item Numero de factura.
+			\item Monto total.
+			\item Fecha factura.
+		\end{itemize}
+		
+		Y para registrar los datos restantes, dicha factura es escaneada y subida al sistema. Para ello en esta actividad es imprescindible la participación de una persona que ingrese todo lo necesario. Durante esta tarea de ingreso se realizan tareas de validación, para que datos importantes sean ingresados correctamente, además existe la posibilidad de dejar pendiente el tramite, para continuarlo en otro momento y también anular el ingreso de datos\textit{(ver Figura 4.14)}.
+
+		\begin{figure}[H]
+%			\centering
+			\includegraphics[width=1\textwidth]{Imagenes/ingresoAntes}
+			\caption{Interfaz original del proceso}
+		\end{figure}
+		
+		 Luego viene la actividad de autorizar las facturas, en esta etapa la factura esta lista para ser autorizada por la persona encargada, en caso de que en la empresa hayan mas de 1 persona con la facultad de autorizar dicha factura, se puede realizar una reasignación de la persona a autorizar mediante del uso del botón devolver, esto da paso a la actividad asignación de facturas para que algún usuario del área de contabilidad pueda reasignar correctamente. Si al momento de llegar a autorizar la factura, el usuario que se selecciono para autorizar es correcto, y por ende este procede a autorizar el pago y posterior registro de la factura solo presionando un botón, el cual gatilla la actividad de registro de facturas. 
+		 \newline
+		 \par
+		 En la etapa de registro los datos están ya listo para ser ingresados al sistema de la empresa por contabilidad, tanto como los datos provenientes de la recepcionista como las factura escaneada por esta.
+		
+		\paragraph{Modificación del tramite de Ingreso Facturas} En esta parte ya no solo se utiliza el Designer para poder analizar los grafos asociados a los tramites y actividades. Dentro del grafo en cada circulo rojo \textit{(estructura llamada script)} existente en cada estructura de conversación existe una maqueta de una pagina web, esta maqueta una vez que se llame al tramite para ser utilizado genera una pagina web en Html usando como base la maqueta generada en la estructura de conversación, en este editor de interfaces se pueden utilizar distintas herramientas, tales como textbox, botones, tablas, labels, etc. Esta parte es similar a lo que se puede realizar en visual studio, pero a una escala menor con respecto a la cantidad de herramientas que se pueden utilizar \textit{(ver Figura 4.15)}.
+		
+		\begin{figure}[H]
+%			\centering
+			\includegraphics[width=1.05\textwidth]{Imagenes/pantallaIngreso}
+			\caption{Diseño de interfaz en Designer}
+		\end{figure}
+		
+		Cada una de las herramientas usadas se asocia a un campo de la entidad del tramite \textit{(una tabla en la base de datos)}, con esto se pueden guardar los datos o mostrar los datos que se deseen según sea el caso, en la caso del tramite que se rediseño los datos y el PDF de la factura son cargados mediante procedimientos almacenados a la entidad mediante el parseo de los XML según los tags o nodos que se desean leer del tramite, para que así puedan mostrar los datos de las facturas y el documento físico de la factura embebido en la pagina web, si es que este venia adjuntado también en el correo, como se ve en la Figura 4.16, el problema es cuando en el correo solo viene el archivo XML, y no se puede ver un detalle de la factura, para ello fue necesario crear un estructura de conversación extra en cada una de las actividades, esta estructura es capaz de mostrar con un nivel mucho mayor, con respecto a la cantidad de datos, todos los campos de la factura en el caso de que no exista una versión en PDF, como se puede observar en la Figura 4.17.
+		\newline
+		\begin{figure}[H]
+%			\centering
+			\includegraphics[width=1.1\textwidth]{Imagenes/ingreso}
+			\caption{Interfaz actual del proceso de ingreso con PDF embebido}
+		\end{figure}
+		
+		\begin{figure}[H]
+%			\centering
+			\includegraphics[width=0.8\textwidth]{Imagenes/detalle}
+			\caption{Ejemplo de Interfaz del detalle de una factura sin PDF embebido}
+		\end{figure}		
+			
+		En las 4 actividades del tramite las principales estructuras de conversación son las que manejan como se muestran, ingresan o modifican los datos, como se ve en las Figuras 4.16 y 4.17, también existen estructuras que no poseen ninguna interfaz y que sus principales funciones son del tipo de control de validaciones, estas estructuras están relacionadas con los procedimientos almacenados mediante una estructura llamada transacción, esta dependiendo si va a ser usada en una actividad o en varias actividades se crean adentro o afuera del tramite. por ejemplo en la Figura 4.18 se muestra una estructura de conversación que no posee el circulo rojo \textit{(script)} que es donde se crean la interfaces web, en esta se ejecuta el procedimiento que realiza validaciones, por si falta algún dato, si la factura ya existe o si la persona encargada de autorizarla no es la correcta.
+
+		\begin{figure}[H]
+			\centering
+			\includegraphics[width=0.4\textwidth]{Imagenes/sinScript}
+			\caption{Estructura de conversación sin script}
+		\end{figure}
+		
+		Comparando tramite original con el actual, la diferencia mas notoria, y que cumple uno de los principales objetivo de esta tesis, corresponde a la automatización de este proceso, esto se debe a la aplicación que se encarga de descargar las facturas y leer los Xml, específicamente la automatización se debe a los procedimientos almacenados, que no solo ingresa los datos a la entidad del tramite, sino que también deja el trámite ejecutando \textit{(en estado de pendiente)} en el sitio de la persona que se encarga de iniciar el proceso, esto se puede ver en la Figura 4.19, para retomar el tramite solo basta con marcar el radio Button adecuado y presionar donde dice retomar actividad, con esto mostrara la actividad pendiente.
+
+		\begin{figure}[H]
+%			\centering
+			\includegraphics[width=1.1\textwidth]{Imagenes/sitio}
+			\caption{Actividades pendientes en un sitio Engage }
+		\end{figure}
+		
+	\paragraph{Flujo de trabajo del tramite Ingreso Facturas Proveedores}
+	
+		En esta sección se explicará el funcionamiento del tramite rediseñado para otorgar una mayor comprensión de este y por ende aclarar si que surgieron en algún momento. Primero que nada el proceso inicia con la llegada de los correos con las facturas electrónicas listos para que la aplicación los descargue, esta se ejecutará cada un tiempo definido por medio de un scheduler \textit{(programador de tareas)}, descargando todos los archivos de las facturas \textit{(XML y pdf)}, para luego leerlos y extraer la información necesaria y poder ejecutar los procedimientos que se encargan de guardar estos datos en la base de datos y iniciar el tramite en el sitio de la o las personas encargadas de la primera etapa de proceso, como se vio en la Figura 4.19. Una vez dejando los trámites en estado pendiente en Engage, se realiza un respaldo de los archivos descargados, estos quedan guardados en una carpeta con nombre de la fecha y hora en que empezó a ejecutarse el programa y dentro de esta se organizan según la empresa que recibe dicha factura.
+		\newline
+		\par
+		Luego de que las actividades pendientes aparezcan en cada sitio correspondiente a cada empresa, la persona encargada debe retomar cada actividad. Una vez retomado el tramite se mostrara la pantalla ingreso de facturas, esta web varia levemente dependiendo si es que en el correo de donde proviene el XML cargado, también venia un archivo PDF adjuntado \textit{(ver Figura 4.16 donde se muestra la pantalla de ingreso de factura con un archivo PDF embebido)},  si en ese correo solo venia un archivo XML se mostrar un mensaje que dice ``NO HAY PDF ASOCIADO'' como se ven en la Figura 4.20.
+		
+		\begin{figure}[H]
+%			\centering
+			\includegraphics[width=1.1\textwidth]{Imagenes/sinPDF}
+			\caption{Ingreso factura sin PDF embebido}
+		\end{figure}		
+		
+		 En el caso que no se pueda ver un PDF embebido existe un botón llamado ``Detalle factura'' , en el cual se ve toda los datos que muestra una factura física o electrónica \textit{(ver Figura 4.17)}, tales como:
+		
+		\begin{itemize}
+			\item Datos de la Factura.
+			\item Datos del Emisor.
+			\item Datos del Receptor.
+			\item Totales.
+			\item Glosa.
+		\end{itemize}
+		
+		Además de poder ver la información del XML, si es que viene alguna información errónea \textit{(Esto es probable que suceda con los XML generados con el OCR)}, se pueda corregir y prever cualquier futuro problema en las siguientes actividades. Una vez esta lista información se presiona el botón guardar y pasa a la actividad autorizar factura, esta actividad por lo general aparece en los sitios de los gerentes de las empresas que podrán usar este servicio, existen algunas excepciones en las cuales existe más de un usuario capaz de autorizar factura por lo que mediante el botón devolver se podrá realizar una reasignaron del autorizador\textit{(ver Figura 4.21)}. 
+		
+		\begin{figure}[H]
+%			\centering
+			\includegraphics[width=1\textwidth]{Imagenes/autorizarFac}
+			\caption{Autorizar Factura sin PDF embebido}
+		\end{figure}		
+		
+		También si fuese necesario se puede rechazar la factura, tanto como el aprobar la factura, la acción rechazar debe también ser realizado por contabilidad y por lo tanto tiene que pasar por la actividad registrar factura, esto es un contradictorio porque cuando se rechaza la factura no se registra en ninguna parte.
+		\newline
+		\par		
+		Si se presiona el botón devolver, es porque se necesita reasignarar agente que autoriza, esto quiere decir que una persona del área de contabilidad podrá elegir a otra persona que pueda autorizar el documento, esta selección de un nuevo autorizador se realiza mediante 2 combobox,en el primero se debe elegir la empresa y el otro el agente autorizador \textit{(ver Figura 4.22)}, todos los demás campos quedan en un estado de no modificable e imprimible.
+		
+		\begin{figure}[H]
+			\includegraphics[width=1\textwidth]{Imagenes/asignarFac}
+			\caption{Asignar Factura sin PDF embebido}
+		\end{figure}	
+
+		Una vez asignado un nuevo usuario para autorizar la factura, se vuelve a la etapa de autorización de estas, pero esta vez en el sitio de la persona que se seleccionó, esta persona autoriza la factura para pasar a a la etapa de registro, donde contabilidad se encarga de registrar las facturas que serán pagadas mediante solo presionar el botón aprobar \textit{(ver Figura 4.23)}.
+				
+		\begin{figure}[H]
+			\includegraphics[width=1\textwidth]{Imagenes/regFactura}
+			\caption{Registrar Factura sin PDF embebido}
+		\end{figure}	
+		
+		
+		\subsubsection{Integración con Abbyy FlexiCapture 10 (OCR)}
+		En la actualidad de Chile no todas las empresas han implementados las facturas electrónicas, para ello se pensó que una solución viable para automatizar el proceso de facturas físicas era utilizar un software OCR adquirido por la empresa hace un tiempo atrás. Este software OCR permite el reconocimiento de todo tipo de caracteres alfanuméricos, símbolos, imágenes, códigos de barras, tablas, etc y por lo tanto una implementan de este con Engage podría resolver esta problemática, para ello una ves instalado en un servidor de la empresa se realizaron una serie de pruebas para comprender el funcionamiento de este software y ver si esta herramienta era posible integrarla con las tecnologías que usan para desarrollar. Para realizar esto se nos encargo a un grupo de personas investigar esto, y los resultados fueron que este software dentro de las muchas cosas que instala, una de ellas es un servidor que maneja todas la configuraciones del Abbyy flexicapture, una de ellos es el control de los proyectos, también se averiguo que el software incluía una API \textit{(Interfaz de programación de aplicaciones)} para realizar un cliente que se conecte a los servicios que entrega este servidor \textit{(un webservice)}, el cual se encarga de enviar las facturas y dar como salida un el tipo de archivo que fue predefinido en el proyecto \textit{(XML en el caso de las facturas)}.
+		\newline
+		\par   
+		Para que el OCR pueda realizar el reconocimiento de las facturas primero es necesario crear unas plantillas donde se definen la información que se desea buscar, para ello se definen áreas de búsquedas de ciertas palabras claves, por ejemplo para encontrar el rut del emisor primero hay que encontrar la palabra rut en el área de los datos del emisor y luego hay que definir en que dirección de dicha palabra se encuentra lo que necesitamos. Por lo tanto hay que definir distintas areas de búsqueda para los varios formatos en que los datos de las facturas se distribuyen, puesto que el SII impone algunas reglas de formato de facturas electrónicas, estas reglas son solo de posición y formato en el caso del cuadro superior que deben ir el rut de la empresa emisora, el tipo de factura y el folio de esta, en los otros datos solo impone que información debe ir, pero no especifica una posición, por lo que dependiendo de la empresa pueden existir diferentes formatos (ver Figura 2.4 ejemplo de creación de plantillas).
+		
+		\begin{figure}[H]
+			\includegraphics[width=1\textwidth]{Imagenes/abbyy}
+			\caption{Creación DE templateS de reconocimiento en Abbyy flexicapture}
+		\end{figure}
+		
+		Para que el proyecto creado en el servidor del OCR pueda reconocer las facturas se deben crear y posteriormente cargar las plantillas de reconocimiento, estas se crean mediante el Abbyy Flexilayout \textit{(una herramienta del OCR}), y luego se exporta un archivo que lleva todas las configuraciones y este es cargado en el proyecto que se encuentra en el servidor.
+		
+			\paragraph{Funcionamiento del Web service} 
+			\par
+			Para comenzar, esta aplicación cumple la función de obtener los proyectos existentes en el servidor del Abbyy Flexicapture, para luego poder enviar los archivos que se crean necesarios. Esto es realizado por medio de la API dada por el OCR y de los recursos que incluye Visual Studio se crearon clases, métodos, propiedades y atributos para la creación de este webservice el cual posee 3 métodos principales que engloban y explican el funcionamiento del webservice.
+			
+			\begin{itemize}
+				\item \textbf{Método ObtenerListaProyectos:} Este método lo que hace es conectarse al servidor de la empresa donde se encuentra instalado el OCR y obtiene la lista de proyectos a los que se desea enviar las facturas.
+				
+				\item \textbf{Método UploadFile:} Este método se encarga de enviar al servidor del OCR los archivos para ser procesados.
+				
+				\item \textbf{Método AplicarOcrADocumento:} Una vez seleccionados los documentos y el proyecto se envían los archivos mediante el método UploadFile, posteriormente le dice al proyecto que procese los documentos, pero aplicando ciertas propiedades, por ejemplo se dice que salte un etapa en el procesamiento para que el archivo de salida pueda ser generado automáticamente.
+
+			\end{itemize}	
+		
+				

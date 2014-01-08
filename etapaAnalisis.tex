@@ -1,0 +1,49 @@
+\section{Resolución  del Problema}
+	
+	\subsection{Etapa de Analisis}
+
+	\subsubsection{Reuniones} 
+	Principalmente durante de la primera etapa se realizaron reuniones para obtener lo requerimientos del sistema a realizar, luego se efectuaron una series de reuniones para aclarar dudas, corregir los modelos que se fueron construyendo a medida se avanzaba en el proyecto de tesis y para controlar el avance del trabajo.
+		
+	\subsubsection{Revisión y análisis del proceso actual de pago} 
+	Luego de una serie de reuniones nombradas en el punto anterior se procedió a revisar y analizar los requerimientos obtenidos de estas y se concluyo a grandes rasgos que lo que se deseaba desarrollar es un un nuevo proceso mas automatizado para el pago y visación de facturas a proveedores. Se concluyó que este proceso consta de 4 etapas o actividades las cuales se muestran en la Figura 4.2 y 4.3.
+
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width=0.7\textwidth]{Imagenes/procesoGeneral}
+		\caption{Proceso pago y visación de facturas}
+	\end{figure}
+	
+	\begin{figure}[H]
+%		\centering
+		\begin{turn}{270}
+			\includegraphics[width=1.5\textwidth, height=0.95\textwidth]{Imagenes/original}
+		\end{turn}
+		\caption{Modelo proceso pago proveedores}
+	\end{figure}
+
+	\paragraph{Análisis de Etapa de Recepción}
+	 El proceso inicia con la llegada de las facturas a la recepción de la empresa. la persona que esta en recepción \textit{(generalmente una secretaria)} después de recibir los documentos los escanea para luego ser usados en la siguiente etapa.
+			
+	\paragraph{Análisis de Etapa de Registro}
+	 La que recepciona los documentos se encarga de ingresar a Engage las facturas que llegaron, se ingresa:
+				
+	\begin{itemize}
+		\item El proveedor o la empresa de cual proviene la factura.
+		\item El monto total.
+		\item La empresa que efectuó la orden de compra.
+		\item La Fecha de recepción.
+		\item El gerente que autorizará esta factura.
+	\end{itemize}
+			
+	\par
+	Y luego se adjunta el archivo escaneado en la etapa anterior. Finalmente se informa a contabilidad que se hizo recepción de los documentos y son enviados a los personas encargadas  de verificar ciertas condiciones necesarias para la factura siga el correcto ciclo de pago correcto.
+		
+	\paragraph{Análisis de Etapa de Aprobación} 
+	Esta etapa se centra en realizar un par de comprobaciones con el fin de verificar la existencia de las ordenes de compra asociadas a las facturas que fueron recepcionadas, si no pasa esta comprobación la factura es devuelta a su proveedor y si pasa la verificación sigue con la  solicitud de aprobación del pago de dicho documento al gerente de la empresa que emitió a la orden de compra. Finalmente contabilidad asigna una fecha de pago y se añade una base de datos\textit{(planilla excel)}.
+			
+	\paragraph{Análisis de Etapa de Pago} 
+	Por ultimo cuando ya la factura fue validada por los analistas y el gerente de la empresa, esta se paga, pero esta acción se ejecuta solo 2 veces al mes en ciertas fechas, las cuales son los 1 y los 16 de cada mes, si por las fechas de pago cae un fin de semana o un día feriado, las facturas son pagadas el día hábil mas cercano.
+			
+			
+	
