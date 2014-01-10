@@ -1,16 +1,16 @@
 \begin{longtable}{|llrrrrrr|}
 	\hline
-	\multicolumn{2}{|l|}{\textbf{Patrón de procesos}} & \multicolumn{6}{|l|}{\textit{Ingreso de Facturas no electronicas}} \\ \hline
+	\multicolumn{2}{|l|}{\textbf{Patrón de procesos}} & \multicolumn{6}{|l|}{\textit{Ingreso de Facturas no electrónicas}} \\ \hline
 	\multicolumn{8}{|l|}{\textbf{Definición general del proceso}} \\ \hline
-	\textbf{Proceso} & \multicolumn{7}{|m{12cm}|}{Ingreso de facturas fisicas o no electronicas para Pago Proveedores} \\ \hline
+	\textbf{Proceso} & \multicolumn{7}{|m{12cm}|}{Ingreso de facturas no electrónicas para Pago Proveedores} \\ \hline
 	\textbf{Categoría} & \multicolumn{7}{|m{12cm}|}{Operacional} \\ \hline
 	\textbf{Propósito} & \multicolumn{7}{|m{12cm}|}{Otorgar un mayor grado de automatización al ingreso de facturas para el pago de proveedores.} \\ \hline
     \textbf{Descripción} & \multicolumn{7}{|m{12cm}|}{Proceso macro, del cual nacen 4 subprocesos encargados de las distintas etapas para ingresar, autorizar, reasignar y registar las facturas físicas} \\ \hline
 	\multirow{4}[6]{*}{\textbf{Objetivos}} 
-		  & \multicolumn{7}{|l|}{O1 - Ingresar Factura a ENGAGE} \\ \cline{2-8}
-          & \multicolumn{7}{|l|}{O2 - Autorizar Factura a ENGAGE} \\ \cline{2-8}
-          & \multicolumn{7}{|l|}{O3 - Asignar Factura a ENGAGE} \\ \hline
-          & \multicolumn{7}{|l|}{O4 - Registrar Factura a ENGAGE} \\ \hline
+		  & \multicolumn{7}{|l|}{O1 - Ingresar Factura a Engage} \\ \cline{2-8}
+          & \multicolumn{7}{|l|}{O2 - Autorizar Factura a Engage} \\ \cline{2-8}
+          & \multicolumn{7}{|l|}{O3 - Asignar Factura a Engage} \\ \hline
+          & \multicolumn{7}{|l|}{O4 - Registrar Factura a Engage} \\ \hline
     \multicolumn{1}{|l|}{\textbf{Responsabilidad}} 	& \multicolumn{7}{|l|}{Responsable: } \\
 	\multicolumn{1}{|l|}{\textbf{y Autoridad}} 	& \multicolumn{7}{|l|}{Autoridad: } \\ \hline
 	\multirow{3}[4]{*}{\textbf{Subprocesos}} 
@@ -29,44 +29,32 @@
     \textbf{Nombre} & \multicolumn{5}{|l|}{\textbf{Descripción}} & \multicolumn{2}{|l|}{\textbf{Destino}} \\ \hline
     Informacion & \multicolumn{5}{|l|}{Información guardada en Base de datos} & \multicolumn{2}{|l|}{Cliente} \\ \hline
        &       &       &       &       &       &       &  \\ \hline
-\multicolumn{8}{|l|}{\textbf{Actividades}} \\ \hline
+	\multicolumn{8}{|l|}{\textbf{Actividades}} \\ \hline
     \textbf{Rol} & \multicolumn{7}{|l|}{\textbf{Descripción}} \\ \hline
-    \multicolumn{8}{|l|}{\textbf{A1. Ingresar Factura}} \\ \hline
-    & \multicolumn{7}{|l|}{A1.1 -  Recepcionar Facturas} \\ \hline
-    & \multicolumn{7}{|l|}{A1.2 -  Escanear Facturas} \\ \hline
-    & \multicolumn{7}{|l|}{A1.3 -  Informar de recepcion de facturas a Contabilidad} \\ \hline
-    & \multicolumn{7}{|l|}{A1.4 -  Enviar a Contabilidad facturas fisicias} \\ \hline
-    & \multicolumn{7}{|l|}{A1.5 -  Ingresar documentos a la cola del OCR (Hot Folder)} \\ \hline
-    & \multicolumn{7}{|l|}{A1.6 -  Reconocer Facturas} \\ \hline
-    & \multicolumn{7}{|l|}{A1.7 -  Extraer Informacion} \\ \hline
-    & \multicolumn{7}{|l|}{A1.8 -  Generar archivo XML de salida} \\ \hline
-    & \multicolumn{7}{|l|}{A1.9 -  Enviar a carpeta de facturas} \\ \hline
-    & \multicolumn{7}{|l|}{A1.10 - Leer el XML} \\ \hline
-    & \multicolumn{7}{|l|}{A1.11 - Cargar datos a ENGAGE} \\ \hline
-    & \multicolumn{7}{|l|}{A1.12 - Revision de los Datos } \\ \hline 
-    & \multicolumn{7}{|l|}{A1.13 - Enviar para Autorizacion} \\ \hline
-    \multicolumn{8}{|l|}{\textbf{A2. Autorizar Factura}} \\ \hline
+   
+    \multicolumn{8}{|l|}{\textbf{A1. Ingresar Factura (O1)}} \\ \hline
+   	Casilla de Correos & \multicolumn{7}{|l|}{A1.1 - Recibir y enviar facturas} \\ \hline 
+   	Aplicacion & \multicolumn{7}{|l|}{A1.2 - Reconocer informacion de facturas fisicas} \\ \hline
+  	Secretaria & \multicolumn{7}{|l|}{A1.3 - Leer y ingresar facturas a Engage} \\ \hline
+  	Recepcion Engage & \multicolumn{7}{|l|}{A1.4 - Revisar datos y enviar a autorizacion} \\ \hline
+    
+    \multicolumn{8}{|l|}{\textbf{A2. Autorizar Factura (O2)}} \\ \hline
     Gerente & \multicolumn{7}{|m{12cm}|}{A2.1 - Comprobar si la persona que autoriza esa factura es el correcto} \\ \hline
-    Gerente & \multicolumn{7}{|l|}{A2.1a - si es correcto el autoziador, Validar Orden de Compra } \\ \hline
-    Gerente & \multicolumn{7}{|l|}{A2.1b - si no es correcto , Devolver a Contabilidad} \\ \hline
-    Gerente & \multicolumn{7}{|m{12cm}|}{A2.2 - El Gerente revisa si existe una orden de compra asociada a la factura que se va a autorizar } \\ \hline
-    Gerente & \multicolumn{7}{|l|}{A2.2a - Si esta orden de compra existe se Autoriza la Factura } \\ \hline
-	Gerente & \multicolumn{7}{|l|}{A2.2b - Si esta orden de compra no existe se Rechaza la Factura } \\ \hline
-    \multicolumn{8}{|l|}{\textbf{A3. Reasignar Factura}} \\ \hline
-    Contabilidad & \multicolumn{7}{|l|}{A3.1 - Reasignar Autorizador} \\ \hline
-    \multicolumn{8}{|l|}{\textbf{A4. Registrar Factura}} \\ \hline
-    Contabilidad & \multicolumn{7}{|l|}{A4.1 - Se consulta el estado de la factura} \\ \hline
-    Contabilidad & \multicolumn{7}{|m{12cm}|}{A4.1a - si la factura fue autorizada se procede a Confirmar la Aprobacion de la factura} \\ \hline
-    Contabilidad  & \multicolumn{7}{|l|}{A4.2 - Guardar datos en Base de datos} \\ \hline
-    Contabilidad  & \multicolumn{7}{|l|}{A4.3 - Confirmar Rechazo Factura} \\ \hline
-    Contabilidad  & \multicolumn{7}{|l|}{A4.4 - Pagar Factura} \\ \hline
+    Gerente & \multicolumn{7}{|m{12cm}|}{A2.1a - Si el autorizador es correcto ir a actividad A4 } \\ \hline
+    Gerente & \multicolumn{7}{|l|}{A2.1b - Si el autorizador es correcto ir a actividad A3 } \\ \hline
+
+    \multicolumn{8}{|l|}{\textbf{A3. Reasignar Factura (O3)}} \\ \hline
+    Contabilidad & \multicolumn{7}{|l|}{A3.1 - Asignar nueva persona de autorizar la factura} \\ \hline
+    
+    \multicolumn{8}{|l|}{\textbf{A4. Registrar Factura (O4)}} \\ \hline
+    Contabilidad & \multicolumn{7}{|l|}{A4.1 - Confirmar estado de la factura para su pago} \\ \hline
+
      & & & & & & & \\ \hline
 	\multicolumn{8}{|l|}{\textbf{Verificaciones y Validaciones}} \\ \hline
-	\multicolumn{2}{|m{3cm}|}{\textbf{Verificaciones y Validaciones}} & \multicolumn{1}{m{2cm}|}{\textbf{Actividad}} & \multicolumn{1}{m{2,2cm}|}{\textbf{Producto}} & \multicolumn{1}{m{1.5cm}|}{\textbf{Rol}} &\multicolumn{3}{m{4cm}|}{\textbf{Lineamientos de Verificacion o Validacion}} \\ \hline
-	\multicolumn{2}{|m{3cm}|}{Val 1} & \multicolumn{1}{m{2cm}|}{Validar Autorizador} & \multicolumn{1}{m{2.2cm}|}{Derivacion a Autorizador} & \multicolumn{1}{m{2cm}|}{Gerente} & \multicolumn{3}{m{4cm}|}{Verifica que si la persona que selecciono previamente como el autorizador es la persona correcta para realizar este trabajo} \\ \hline
-		
-	\multicolumn{2}{|m{3cm}|}{Ver 1} & \multicolumn{1}{m{2cm}|}{Comprobar Existencia de Orden de Compra} & \multicolumn{1}{m{2.2cm}|}{Factura Autorizada} & \multicolumn{1}{m{2cm}|}{Gerente} & \multicolumn{3}{m{4cm}|}{Antes de realizar un pago es necesario verificar que se solicto un servicio o producto a uno de los preveedores} \\ \hline
-	\multicolumn{2}{|m{3cm}|}{ Ver 2} & \multicolumn{1}{m{2cm}|}{Confirmar decision del autorizador} & \multicolumn{1}{m{2.2cm}|}{Decision del Autorizador} & \multicolumn{1}{m{1.5cm}|}{Contabilidad} & \multicolumn{3}{m{4cm}|}{Verificar la desicion tomada por el autorizador de la factura} \\ \hline		
-    \caption{Patron de proceso Ingreso facturas no electronicas}
+	\multicolumn{2}{|m{3cm}|}{\textbf{Verificaciones y Validaciones}} & \multicolumn{1}{m{2cm}|}{\textbf{Actividad}} & \multicolumn{1}{m{2,2cm}|}{\textbf{Producto}} & \multicolumn{1}{m{1.5cm}|}{\textbf{Rol}} &\multicolumn{3}{m{4cm}|}{\textbf{Lineamientos de Verificación o Validación}} \\ \hline
+
+	\multicolumn{2}{|m{3cm}|}{Val 1} & \multicolumn{1}{m{2cm}|}{Validar Autorizador} & \multicolumn{1}{m{2.2cm}|}{Derivación a Autorizador} & \multicolumn{1}{m{2cm}|}{Gerente} & \multicolumn{3}{m{4cm}|}{Verifica que si la persona que selecciono previamente como el autorizador es la persona correcta para realizar este trabajo} \\ \hline
+	
+	\caption{Patrón de procesos para Proceso ingreso de facturas físicas}
 \end{longtable}
 

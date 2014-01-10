@@ -1,0 +1,41 @@
+\begin{longtable}{|llrrrrrr|}
+	\hline
+	\multicolumn{2}{|l|}{\textbf{Patrón de Subprocesos}} & \multicolumn{6}{|l|}{\textit{Registrar facturas}} \\ \hline
+	\multicolumn{8}{|l|}{\textbf{Definición general del proceso}} \\ \hline
+	\textbf{Proceso} & \multicolumn{7}{|m{12cm}|}{Registrar facturas} \\ \hline
+	\textbf{Categoría} & \multicolumn{7}{|m{12cm}|}{Operacional} \\ \hline
+	\textbf{Propósito} & \multicolumn{7}{|m{12cm}|}{Registrar la aprobación o rechazo de la factura} \\ \hline
+    \textbf{Descripción} & \multicolumn{7}{|m{12cm}|}{Subproceso que se encarga de confirmar la decisión tomada por el autorizador y si este aprueba la factura registrarla para su posterior pago} \\ \hline
+	\multirow{0}[6]{*}{\textbf{Objetivos}} 
+          & \multicolumn{7}{|l|}{O1 -  Confirmar estado de la factura para su pago} \\ \hline
+    \multicolumn{1}{|l|}{\textbf{Responsabilidad}} 	& \multicolumn{7}{|l|}{Responsable: } \\
+	\multicolumn{1}{|l|}{\textbf{y Autoridad}} 	& \multicolumn{7}{|l|}{Autoridad: } \\ \hline
+    \multicolumn{1}{|l|}{\textbf{Procesos}} 	& \multicolumn{7}{|m{12cm}|}{} \\
+	\multicolumn{1}{|l|}{\textbf{Relacionados}} 	&  \multicolumn{7}{|m{12cm}|}{} \\ \hline
+          &       &       &       &       &       &       &  \\ \hline
+    \multicolumn{8}{|l|}{\textbf{Entradas}} \\ \hline
+    \multicolumn{5}{|l|}{\textbf{Nombre}}   & \multicolumn{3}{|l|}{\textbf{Fuente}} \\ \hline
+    \multicolumn{5}{|l|}{Estado de la Factura} & \multicolumn{3}{|m{3.5cm}|}{Subproceso Autorizar factura} \\  \hline
+       &       &       &       &       &       &       &  \\ \hline
+    \multicolumn{8}{|l|}{\textbf{Salidas}} \\ \hline
+    \textbf{Nombre} & \multicolumn{5}{|l|}{\textbf{Descripción}} & \multicolumn{2}{|l|}{\textbf{Destino}} \\ \hline
+     & \multicolumn{5}{|m{6cm}|}{Factura lista para pagar} & \multicolumn{2}{|m{3cm}|}{Cliente} \\ \hline
+       &       &       &       &       &       &       &  \\ \hline
+	
+	
+	\multicolumn{8}{|l|}{\textbf{Actividades}} \\ \hline
+    \textbf{Rol} & \multicolumn{7}{|l|}{\textbf{Descripción}} \\ \hline 
+    \multicolumn{8}{|l|}{\textbf{A1. Confirmar estado de la factura para su pago (O1) }} \\ \hline
+    Contabilidad & \multicolumn{7}{|m{12cm}|}{A1.1 - Verificar estado de la factura es Aprobado o Rechazado } \\ \hline
+    Contabilidad & \multicolumn{7}{|m{12cm}|}{A1.1a - Si es rechazado, se confirma el rechazo y se termina el proceso} \\ \hline
+    Contabilidad & \multicolumn{7}{|m{12cm}|}{A1.1a - Si es aprobado, se confirma la aprobación y pasa a la actividad 1.2} \\ \hline
+    Contabilidad & \multicolumn{7}{|m{12cm}|}{A1.2 Se Guarda en la base de datos} \\ \hline
+    Contabilidad & \multicolumn{7}{|m{12cm}|}{A1.1a - Se autoriza el pago de la factura y se termina el proceso} \\ \hline    
+     & & & & & & & \\ \hline
+	\multicolumn{8}{|l|}{\textbf{Verificaciones y Validaciones}} \\ \hline
+	\multicolumn{2}{|m{3cm}|}{\textbf{Verificaciones y Validaciones}} & \multicolumn{1}{m{2cm}|}{\textbf{Actividad}} & \multicolumn{1}{m{2,2cm}|}{\textbf{Producto}} & \multicolumn{2}{m{1.5cm}|}{\textbf{Rol}} &\multicolumn{2}{m{4cm}|}{\textbf{Lineamientos de Verificación o Validación}} \\ \hline
+	
+	\multicolumn{2}{|m{3cm}|}{Ver 1} & \multicolumn{1}{m{2cm}|}{Confirmar estado de factura} & \multicolumn{1}{m{2,2cm}|}{estado de la factura confirmado} & \multicolumn{2}{m{0.51cm}|}{Contabilidad} &\multicolumn{2}{m{4cm}|}{Verifica el estado de la factura para ver si esta sera pagada o no} \\ \hline
+	\caption{Patrón de procesos para el subproceso registrar factura}
+
+\end{longtable}

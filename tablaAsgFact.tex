@@ -1,0 +1,32 @@
+\begin{longtable}{|llrrrrrr|}
+	\hline
+	\multicolumn{2}{|l|}{\textbf{Patrón de Subprocesos}} & \multicolumn{6}{|l|}{\textit{Asignar de facturas}} \\ \hline
+	\multicolumn{8}{|l|}{\textbf{Definición general del proceso}} \\ \hline
+	\textbf{Proceso} & \multicolumn{7}{|m{12cm}|}{Asignar de facturas} \\ \hline
+	\textbf{Categoría} & \multicolumn{7}{|m{12cm}|}{Operacional} \\ \hline
+	\textbf{Propósito} & \multicolumn{7}{|m{12cm}|}{Asignar nuevo autorizador a una factura} \\ \hline
+    \textbf{Descripción} & \multicolumn{7}{|m{12cm}|}{Subproceso que se encarga de asignar un nuevo autorizador cuando fue mal asignado en el ingreso de la factura} \\ \hline
+	\multirow{0}[6]{*}{\textbf{Objetivos}} 
+          & \multicolumn{7}{|l|}{O1 -  Asignar nueva persona de autorizar la factura} \\ \hline
+    \multicolumn{1}{|l|}{\textbf{Responsabilidad}} 	& \multicolumn{7}{|l|}{Responsable: } \\
+	\multicolumn{1}{|l|}{\textbf{y Autoridad}} 	& \multicolumn{7}{|l|}{Autoridad: } \\ \hline
+    \multicolumn{1}{|l|}{\textbf{Procesos}} 	& \multicolumn{7}{|m{12cm}|}{Este proceso precede y su destino es el subproceso Autorizar factura} \\
+	\multicolumn{1}{|l|}{\textbf{Relacionados}} 	&  \multicolumn{7}{|m{12cm}|}{} \\ \hline
+          &       &       &       &       &       &       &  \\ \hline
+    \multicolumn{8}{|l|}{\textbf{Entradas}} \\ \hline
+    \multicolumn{5}{|l|}{\textbf{Nombre}}   & \multicolumn{3}{|l|}{\textbf{Fuente}} \\ \hline
+    \multicolumn{5}{|l|}{Factura con selección de autorizador equivocado} & \multicolumn{3}{|m{3.5cm}|}{Subproceso Autorizar factura} \\  \hline
+       &       &       &       &       &       &       &  \\ \hline
+    \multicolumn{8}{|l|}{\textbf{Salidas}} \\ \hline
+    \textbf{Nombre} & \multicolumn{5}{|l|}{\textbf{Descripción}} & \multicolumn{2}{|l|}{\textbf{Destino}} \\ \hline
+    Reasignación & \multicolumn{5}{|m{6cm}|}{Se va al subproceso autorizar cuando se escogio al nuevo autorizador} & \multicolumn{2}{|m{3cm}|}{Subproceso Asignar factura} \\ \hline
+       &       &       &       &       &       &       &  \\ \hline
+	
+	
+	\multicolumn{8}{|l|}{\textbf{Actividades}} \\ \hline
+    \textbf{Rol} & \multicolumn{7}{|l|}{\textbf{Descripción}} \\ \hline 
+    \multicolumn{8}{|l|}{\textbf{A1. Asignar nueva persona de autorizar la factura (O1) }} \\ \hline
+    Contabilidad & \multicolumn{7}{|m{12cm}|}{A1.1 - Seleccionar nuevo autorizador} \\ \hline
+     
+    \caption{Patrón de procesos para el subproceso asignar factura}
+\end{longtable}
