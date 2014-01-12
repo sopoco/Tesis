@@ -7,11 +7,11 @@
 	\textbf{Propósito} & \multicolumn{7}{|m{12cm}|}{Autorizar facturas para su posterior pago} \\ \hline
     \textbf{Descripción} & \multicolumn{7}{|m{12cm}|}{Subproceso que se encarga de que la persona encargada autorize la factura ingresada del proceso anterior \textit{(Ingreso de facturas)}} \\ \hline
 	\multirow{0}[6]{*}{\textbf{Objetivos}} 
-          & \multicolumn{7}{|l|}{O1 -  Aprobacion de la factura ingresada} \\ \hline
+          & \multicolumn{7}{|l|}{O1 -  Aprobación de la factura ingresada} \\ \hline
     \multicolumn{1}{|l|}{\textbf{Responsabilidad}} 	& \multicolumn{7}{|l|}{Responsable: } \\
 	\multicolumn{1}{|l|}{\textbf{y Autoridad}} 	& \multicolumn{7}{|l|}{Autoridad: } \\ \hline
-    \multicolumn{1}{|l|}{\textbf{Procesos}} 	& \multicolumn{7}{|m{12cm}|}{Este proceso precede al ingresar factura y de dependiendo de ciertas } \\
-	\multicolumn{1}{|l|}{\textbf{Relacionados}} 	&  \multicolumn{7}{|m{12cm}|}{reglas puede anteceder a asignar o registrar factura} \\ \hline
+    \multicolumn{1}{|l|}{\textbf{Procesos}} 	& \multicolumn{7}{|m{12cm}|}{Subprocesos Ingresar, Asignar y Registrar facturas} \\
+	\multicolumn{1}{|l|}{\textbf{Relacionados}} 	&  \multicolumn{7}{|m{12cm}|}{} \\ \hline
           &       &       &       &       &       &       &  \\ \hline
     \multicolumn{8}{|l|}{\textbf{Entradas}} \\ \hline
     \multicolumn{5}{|l|}{\textbf{Nombre}}   & \multicolumn{3}{|l|}{\textbf{Fuente}} \\ \hline
@@ -19,17 +19,16 @@
        &       &       &       &       &       &       &  \\ \hline
     \multicolumn{8}{|l|}{\textbf{Salidas}} \\ \hline
     \textbf{Nombre} & \multicolumn{5}{|l|}{\textbf{Descripción}} & \multicolumn{2}{|l|}{\textbf{Destino}} \\ \hline
-    Reasignacion & \multicolumn{5}{|m{6cm}|}{Se va al subproceso asignar cuando no se escogio correctamente al autorizador} & \multicolumn{2}{|m{3cm}|}{Subproceso Asignar factura} \\ \hline
-    Aprobacion & \multicolumn{5}{|m{6cm}|}{Se va al subproceso registrar para confirmar su aprobacion} & \multicolumn{2}{|m{3cm}|}{Subproceso Registrar factura} \\ \hline
-    Rechazo & \multicolumn{5}{|m{6cm}|}{Se va al subproceso registrar para confirmar su rechazo} & \multicolumn{2}{|m{3cm}|}{Subproceso Registrar factura} \\ \hline
+    Reasignación & \multicolumn{5}{|m{6cm}|}{Se va al subproceso asignar cuando no se escogió correctamente al autorizador} & \multicolumn{2}{|m{3cm}|}{Subproceso Asignar factura} \\ \hline
+    Estado Factura & \multicolumn{5}{|m{6cm}|}{Se va al subproceso registrar para confirmar su rechazo o su aprobación} & \multicolumn{2}{|m{3cm}|}{Subproceso Registrar factura} \\ \hline
        &       &       &       &       &       &       &  \\ \hline
 	
 	
 	\multicolumn{8}{|l|}{\textbf{Actividades}} \\ \hline
     \textbf{Rol} & \multicolumn{7}{|l|}{\textbf{Descripción}} \\ \hline 
-    \multicolumn{8}{|l|}{\textbf{A1. Aprobacion de la factura ingresada (O1) }} \\ \hline
+    \multicolumn{8}{|l|}{\textbf{A1. Aprobación de la factura ingresada (O1) }} \\ \hline
      Gerente & \multicolumn{7}{|m{12cm}|}{A1.1 -  Comprobar si la persona que autoriza esa factura es el correcto} \\ \hline
-     Gerente & \multicolumn{7}{|m{12cm}|}{A1.1a - Si es correcto el autoziador, Validar Orden de Compra } \\ \hline
+     Gerente & \multicolumn{7}{|m{12cm}|}{A1.1a - Si es correcto el autorizador, Validar Orden de Compra } \\ \hline
      Gerente & \multicolumn{7}{|m{12cm}|}{A1.1b - Si no es correcto , Devolver a Contabilidad} \\ \hline
      Gerente & \multicolumn{7}{|m{12cm}|}{A1.2 - Se revisa si existe una orden de compra asociada a la factura que se va a autorizar} \\ \hline
      Gerente & \multicolumn{7}{|m{12cm}|}{A1.2a - Si esta orden de compra existe se Autoriza la Factura } \\ \hline
@@ -37,10 +36,10 @@
     
      & & & & & & & \\ \hline
 	\multicolumn{8}{|l|}{\textbf{Verificaciones y Validaciones}} \\ \hline
-	\multicolumn{2}{|m{3cm}|}{\textbf{Verificaciones y Validaciones}} & \multicolumn{1}{m{2cm}|}{\textbf{Actividad}} & \multicolumn{1}{m{2,2cm}|}{\textbf{Producto}} & \multicolumn{1}{m{1.5cm}|}{\textbf{Rol}} &\multicolumn{3}{m{4cm}|}{\textbf{Lineamientos de Verificacion o Validacion}} \\ \hline
+	\multicolumn{2}{|m{3cm}|}{\textbf{Verificaciones y Validaciones}} & \multicolumn{1}{m{2cm}|}{\textbf{Actividad}} & \multicolumn{1}{m{2,2cm}|}{\textbf{Producto}} & \multicolumn{1}{m{1.5cm}|}{\textbf{Rol}} &\multicolumn{3}{m{4cm}|}{\textbf{Lineamientos de Verificación o Validación}} \\ \hline
 	
-	\multicolumn{2}{|m{3cm}|}{Val 1} & \multicolumn{1}{m{2cm}|}{Validar Autorizador} & \multicolumn{1}{m{2.2cm}|}{Derivacion a Autorizador} & \multicolumn{1}{m{2cm}|}{Gerente} & \multicolumn{3}{m{4cm}|}{Verifica que si la persona que selecciono previamente como el autorizador es la persona correcta para realizar este trabajo} \\ \hline
+	\multicolumn{2}{|m{3cm}|}{Val 1} & \multicolumn{1}{m{2cm}|}{Validar Autorizador} & \multicolumn{1}{m{2.2cm}|}{Derivación a Autorizador} & \multicolumn{1}{m{2cm}|}{Gerente} & \multicolumn{3}{m{4cm}|}{Verifica que si la persona que selecciono previamente como el autorizador es la persona correcta para realizar este trabajo} \\ \hline
 		
-	\multicolumn{2}{|m{3cm}|}{Ver 2} & \multicolumn{1}{m{2cm}|}{Comprobar Existencia de Orden de Compra} & \multicolumn{1}{m{2.2cm}|}{Factura Autorizada} & \multicolumn{1}{m{2cm}|}{Gerente} & \multicolumn{3}{m{4cm}|}{Antes de realizar un pago es necesario verificar que se solicto un servicio o producto a uno de los preveedores} \\ \hline
+	\multicolumn{2}{|m{3cm}|}{Ver 2} & \multicolumn{1}{m{2cm}|}{Comprobar Existencia de Orden de Compra} & \multicolumn{1}{m{2.2cm}|}{Factura Autorizada} & \multicolumn{1}{m{2cm}|}{Gerente} & \multicolumn{3}{m{4cm}|}{Antes de realizar un pago es necesario verificar que se solicito un servicio o producto a uno de los proveedores} \\ \hline
     \caption{Patrón de procesos para el subproceso autorizar factura}
 \end{longtable}
