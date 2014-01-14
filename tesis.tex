@@ -1,0 +1,83 @@
+\documentclass[letterpaper,12pt]{report}
+%\usepackage[left=4cm,right=3cm,top=4cm,bottom=4cm]{geometry} %margenas hoja
+\usepackage[spanish]{babel}
+\usepackage{amsmath}
+\usepackage{ucs}
+\usepackage{geometry,amsthm,graphics,amssymb,amsmath,latexsym}
+\usepackage[all,2cell]{xy} \UseAllTwocells \SilentMatrices
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc} %Codificacion de fuente
+\usepackage{graphicx}% biblioteca para agregar imagenes a latex
+\usepackage{apacite}
+\usepackage{natbib}
+%\usepackage{hyperref}
+\usepackage{url}
+\usepackage{listings}
+\usepackage{caption} 
+\usepackage{fancyhdr}
+\usepackage{float}
+\usepackage{rotating}
+\usepackage{tocloft}
+\usepackage{lscape} %rotar pagina
+\usepackage{rotating}
+\usepackage{multirow}
+\usepackage{longtable}
+\usepackage{colortbl}
+\usepackage{multirow}
+\usepackage{longtable}
+\usepackage{colortbl}
+\usepackage{booktabs}
+\renewcommand{\baselinestretch}{1.2}
+\usepackage{titlesec, blindtext, color}
+%\usepackage[nochapters]{classicthesis} % nochapters
+\numberwithin{figure}{chapter} %pone numeracion nueva a la figuras
+\numberwithin{table}{chapter} %pone numeracion nueva a ls tablas
+
+\setcounter{tocdepth}{2}
+\setcounter{secnumdepth}{3}
+
+
+\begin{document}
+
+	\renewcommand{\partmark}[1]{\markright{#1}{}}
+	\rhead{\large\thepage}  %  right header: document title
+	\lhead{\small\bfseries \nouppercase{\leftmark}}
+	\cfoot{}
+
+	\pagestyle{fancy}
+	\pagenumbering{arabic}
+	
+	\input{tapa.tex}
+	\newpage
+	\input{tapa2.tex}
+	\newpage
+	\input{agradecimientos.tex}
+	\newpage
+	\input{sumario.tex}
+	\newpage
+	\tableofcontents
+	\listoffigures
+	\renewcommand\listtablename{Índice de Tablas}
+	\renewcommand{\tablename}{Tabla}
+	\listoftables
+	\newpage
+%------------------------------------------------------------------
+	\input{introduccion.tex}
+	\newpage
+	\input{estadodelarte.tex}
+	\newpage
+	\input{marcoteorico.tex}
+	\newpage
+	\input{desarrollo.tex}
+	\input{etapaAnalisis.tex}
+	\input{etapaDiseno.tex}
+	\input{etapaConstruccion.tex}
+	\input{etapaImplementacion.tex}
+	\newpage
+	\input{conclusion.tex}
+	\newpage
+	\input{referencia}
+	\newpage
+	\input{anexo}
+
+\end{document} 
